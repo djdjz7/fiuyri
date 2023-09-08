@@ -1,0 +1,19 @@
+@import './base.css';
+
+#app {
+  margin: 0 auto;
+  padding: 0rem;
+  font-weight: normal;
+}
+
+button {
+  font-family: Inter;
+  @apply p-y-1 p-x-4 border-1 border-solid rounded-2 text-sm
+  @apply transition-all duration-100
+}
+
+input {
+  font-family: Inter;
+  @apply p-y-1 p-x-2 border-1 border-solid rounded-2
+  @apply transition-all duration-100
+}
