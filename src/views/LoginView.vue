@@ -55,7 +55,7 @@ async function login() {
 </script>
 
 <template>
-  <div absolute top-0 bottom-0 left-0 right-0 flex="~ justify-center items-center col md:row">
+  <div absolute top-0 bottom-0 left-0 right-0 flex="~ justify-center items-center col">
     <span text-lg>FIUYRI.</span>
     <div flex="~ justify-center items-center col">
       <h1>Login</h1>
