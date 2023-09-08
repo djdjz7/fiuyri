@@ -11,14 +11,20 @@ import type {
 StorageCredential,
 } from "@/scripts/models";
 import ReplaceDialog from "@/components/ReplaceDialog.vue";
+import router from "@/router"
 
 const dialogRef = ref();
 var noteList = new Array<NoteInfo>();
+const userToken = useUserInfoStore().token;
+if(userToken.trim() == '')
+router.push({
+  path: '/login',
+});
 
 var config: AxiosRequestConfig = {
   headers: {
     "Content-Type": "application/json",
-    Authorization: "Bearer ".concat(useUserInfoStore().token),
+    Authorization: "Bearer ".concat(userToken),
   },
   baseURL: "http://sxz.api6.zykj.org/",
 };
