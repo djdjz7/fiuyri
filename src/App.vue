@@ -3,8 +3,8 @@ import { RouterView } from "vue-router";
 </script>
 
 <template>
-  <Suspense>
-    <RouterView absolute top-0 right-0 left-0 p-12 />
+  <Suspense absolute top-0 right-0 left-0 p-12>
+    <RouterView />
   </Suspense>
 </template>
 

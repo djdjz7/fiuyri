@@ -55,10 +55,13 @@ async function login() {
 </script>
 
 <template>
-  <div flex="~ justify-center items-center col">
-    <h1>Login</h1>
-    <input v-model="account" m-t-2 placeholder="Account"/>
-    <input type="password" v-model="password" placeholder="Password" m-t-2 />
-    <button m-t-4 @click="login">Login</button>
+  <div absolute top-0 bottom-0 left-0 right-0 flex="~ justify-center items-center col md:row">
+    <span text-lg>FIUYRI.</span>
+    <div flex="~ justify-center items-center col">
+      <h1>Login</h1>
+      <input v-model="account" m-t-2 placeholder="Account" />
+      <input type="password" v-model="password" placeholder="Password" m-t-2 />
+      <button m-t-4 @click="login">Login</button>
+    </div>
   </div>
 </template>

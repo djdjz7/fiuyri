@@ -8,12 +8,23 @@
 
 button {
   font-family: Inter;
-  @apply p-y-1 p-x-4 border-1 border-solid rounded-2 text-sm
+  @apply p-y-1 p-x-4 border-1 border-solid border-gray rounded-2 text-sm
   @apply transition-all duration-100
+  @apply focus:ring-2 ring-offset-1 ring-gray/50  
+  @apply text-black
 }
+:focus {
+  outline: none;
+}
+
 
 input {
   font-family: Inter;
-  @apply p-y-1 p-x-2 border-1 border-solid rounded-2
+  @apply p-y-2 p-x-3 border-1 border-solid border-gray rounded-2
   @apply transition-all duration-100
+  @apply focus:ring-2 ring-offset-1 ring-gray/50
+  @apply text-black
+}
+input:focus {
+  outline: none;
 }

@@ -68,7 +68,8 @@ defineExpose({ openDialog });
     right-0
     bottom-0
     md:flex="~ col items-center justify-center"
-    overflow-scroll
+    overflow-y-scroll
+    overflow-x-clip
   >
     <div
       bg-light
@@ -92,14 +93,16 @@ defineExpose({ openDialog });
         rounded-full
         border-none
         absolute
-        top-12
-        right-12
+        top-6
+        right-6
+        md:top-12
+        md:right-12
         @click="isShowing = false"
       >
         <span class="material-symbols-rounded"> close </span>
       </button>
-      <h2 inline>{{ fileName }}</h2>
-      <span inline m-l-2 text-gray>{{ fileUrl }}</span>
+      <h2 block truncate>{{ fileName }}</h2>
+      <span block text-gray truncate>{{ fileUrl }}</span>
 
       <h3 m-t-2>Original file content</h3>
       <div v-if="originalFileContent.trim() != ''" h-40 overflow-scroll m-t-1>
@@ -108,16 +111,19 @@ defineExpose({ openDialog });
       <div v-else m-t-1>
         <span>Empty</span>
       </div>
-      <input block type="file" @change="readFile($event)" />
 
-      <h3 m-t-2>New file content</h3>
+      <input m-t-2 block type="file" accept=".txt" @change="readFile($event)" />
+
+      <h3 m-t-1>New file content</h3>
       <div v-if="newFileContent.trim() != ''" h-40 overflow-scroll m-t-1>
         <pre break-words whitespace-pre-wrap>{{ newFileContent }}</pre>
       </div>
       <div v-else m-t-1>
         <span>Empty</span>
       </div>
-      <button v-if="newFileContent.trim() != ''" m-t-2 @click="beginUpload()">Start</button>
+      <button v-if="newFileContent.trim() != ''" m-t-2 @click="beginUpload()">
+        Start
+      </button>
     </div>
   </div>
 </template>

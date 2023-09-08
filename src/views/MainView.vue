@@ -66,12 +66,10 @@ async function openDialog(note: NoteInfo) {
 </script>
 
 <template>
-  <div h-full w-full flex="~ col items-center">
+  <div m-6 md:m-12 h-full flex="~ col items-center">
     <table>
       <tr v-for="note in noteList">
-        <td text-lg>
-          <a @click="">{{ note.fileName }}</a>
-        </td>
+        <td text-lg>{{ note.fileName }}</td>
         <td text-sm text-gray>{{ note.updateTime }}</td>
         <td>
           <button
