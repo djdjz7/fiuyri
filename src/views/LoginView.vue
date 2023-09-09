@@ -8,9 +8,16 @@ import {
 import axios, { type AxiosRequestConfig } from "axios";
 import { useUserInfoStore } from "@/stores/userInfo";
 import router from "@/router";
+import Popup from "@/components/Popup.vue";
 
-var account = ref("");
-var password = ref("");
+const account = ref("");
+const password = ref("");
+
+const protocolRef = ref();
+if(document.location.protocol.toLowerCase() == "https:")
+{
+  protocolRef.value.show();
+}
 
 async function login() {
   if (account.value == "") {
@@ -52,6 +59,10 @@ async function login() {
     path: "/",
   });
 }
+
+function goHttp() {
+  document.location.protocol = "http:"
+}
 </script>
 
 <template>
@@ -64,4 +75,10 @@ async function login() {
       <button m-t-4 @click="login">Login</button>
     </div>
   </div>
+  <Popup title="Protocol Error" ref="protocolRef">
+    <p>HTTPS is not currently supported by ZY's API, and mixed content is not allowed by modern browsers for security reasons.<br>
+    Please use HTTP instead.
+    </p>
+    <button m-t-2 @click="goHttp()">Go HTTP</button>
+  </Popup>
 </template>
