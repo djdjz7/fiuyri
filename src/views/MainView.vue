@@ -12,6 +12,9 @@ StorageCredential,
 } from "@/scripts/models";
 import ReplaceDialog from "@/components/ReplaceDialog.vue";
 import router from "@/router"
+import Loading from "@/components/Loading.vue";
+
+const isLoading = ref(true);
 
 const dialogRef = ref();
 var noteList = new Array<NoteInfo>();
@@ -66,6 +69,8 @@ if (!getOssCredentialResponseData.success) {
     });
 }
 
+isLoading.value = false;
+
 async function openDialog(note: NoteInfo) {
   dialogRef.value.openDialog(note);
 }
@@ -94,4 +99,5 @@ async function openDialog(note: NoteInfo) {
     </table>
   </div>
   <ReplaceDialog ref="dialogRef" />
+  <Loading v-if="isLoading"/>
 </template>

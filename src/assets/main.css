@@ -1,4 +1,4 @@
-@import './base.css';
+@import "./base.css";
 
 #app {
   margin: 0 auto;
@@ -13,23 +13,49 @@ button {
   @apply focus:ring-2 ring-offset-1 ring-gray/50  
   @apply text-black
   @apply hover:filter-brightness-95 focus:filter-brightness-95
-  @apply hover:shadow-md
+  @apply hover:shadow-md;
 }
 :focus {
   outline: none;
 }
 
-
-input {
+input[type="text"],
+input[type="password"] {
   font-family: Inter;
   @apply p-y-2 p-x-3 border-1 border-solid border-gray rounded-2
   @apply transition-all duration-200
   @apply focus:ring-2 ring-offset-1 ring-gray/50
   @apply text-black
-  @apply hover:shadow-md
+  @apply hover:shadow-md;
 }
-input:focus {
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="file"]:focus {
   outline: none;
+}
+
+input::-webkit-file-upload-button {
+  font-family: Inter;
+  @apply p-y-1 p-x-4 m-r-2 border-1 border-solid border-gray rounded-2 text-sm
+  @apply transition-all duration-200
+  @apply focus:ring-2 ring-offset-1 ring-gray/50  
+  @apply text-black
+  @apply hover:filter-brightness-95 focus:filter-brightness-95
+  @apply hover:shadow-md;
+}
+
+input::file-selector-button {
+  font-family: Inter;
+  @apply p-y-1 p-x-4 m-r-2 border-1 border-solid border-gray rounded-2 text-sm
+  @apply transition-all duration-200
+  @apply focus:ring-2 ring-offset-1 ring-gray/50  
+  @apply text-black
+  @apply hover:filter-brightness-95 focus:filter-brightness-95
+  @apply hover:shadow-md;
+}
+
+input[type="file"] {
+  @apply p-y-2;
 }
 
 ::-webkit-scrollbar {
@@ -39,7 +65,7 @@ input:focus {
 
 ::-webkit-scrollbar-thumb {
   background: #ccc;
-  border-radius: 9999px; 
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -47,5 +73,5 @@ input:focus {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: transparent
+  background-color: transparent;
 }

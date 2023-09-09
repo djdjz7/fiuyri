@@ -106,8 +106,8 @@ defineExpose({ openDialog });
         <span block text-gray truncate>{{ fileUrl }}</span>
 
         <h3 m-t-2>Original file content</h3>
-        <div v-if="originalFileContent.trim() != ''" h-40 overflow-scroll m-t-1>
-          <pre break-words whitespace-pre-wrap>{{ originalFileContent }}</pre>
+        <div v-if="originalFileContent.trim() != ''" h-40 overflow-y-scroll m-t-1 shadow-md rounded-1>
+          <span block m-2 break-words whitespace-pre-wrap>{{ originalFileContent }}</span>
         </div>
         <div v-else m-t-1>
           <span>Empty</span>
@@ -122,8 +122,8 @@ defineExpose({ openDialog });
         />
 
         <h3 m-t-1>New file content</h3>
-        <div v-if="newFileContent.trim() != ''" h-40 overflow-scroll m-t-1>
-          <pre break-words whitespace-pre-wrap>{{ newFileContent }}</pre>
+        <div v-if="newFileContent.trim() != ''" h-40 overflow-y-scroll m-t-1 shadow-md rounded-1>
+          <span block m-2 break-words whitespace-pre-wrap>{{ newFileContent }}</span>>
         </div>
         <div v-else m-t-1>
           <span>Empty</span>
