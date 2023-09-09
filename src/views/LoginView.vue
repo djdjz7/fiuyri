@@ -9,12 +9,15 @@ import axios, { type AxiosRequestConfig } from "axios";
 import { useUserInfoStore } from "@/stores/userInfo";
 import router from "@/router";
 import Popup from "@/components/Popup.vue";
+import Loading from "@/components/Loading.vue"
 
 const account = ref("");
 const password = ref("");
 
 const protocolRef = ref();
 const whyRef = ref();
+
+const isLoading = ref(false);
 
 onMounted(() => {
   if (document.location.protocol.toLowerCase() == "https:") {
@@ -23,6 +26,7 @@ onMounted(() => {
 });
 
 async function login() {
+  isLoading.value = true;
   try {
     if (account.value == "") {
       alert("Account could not be empty.");
@@ -65,6 +69,9 @@ async function login() {
   } catch(e) {
     alert(e);
   }
+  finally {
+    isLoading.value = false;
+  }
 }
 </script>
 
@@ -82,7 +89,7 @@ async function login() {
       <h1>Login</h1>
       <input v-model="account" m-t-2 placeholder="Account" />
       <input type="password" v-model="password" placeholder="Password" m-t-2 />
-      <button m-t-4 @click="login">Login</button>
+      <button type="button" m-t-4 @click="login">Login</button>
       <a href="#" color-red no-underline m-t-2 @click="whyRef.show()">
         <div flex="~ items-center justify-center" text-sm>
           <span class="material-symbols-rounded"> info </span>
@@ -104,4 +111,5 @@ async function login() {
       allowed by modern browsers for security reasons.
     </p>
   </Popup>
+  <Loading v-if="isLoading"/>
 </template>
