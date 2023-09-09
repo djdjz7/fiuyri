@@ -34,7 +34,7 @@ defineExpose({ show });
     >
       <div
         bg-light
-        rounded-4
+        md:rounded-4
         absolute
         top-0
         bottom-0

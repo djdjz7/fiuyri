@@ -23,44 +23,48 @@ onMounted(() => {
 });
 
 async function login() {
-  if (account.value == "") {
-    alert("Account could not be empty.");
-    return;
+  try {
+    if (account.value == "") {
+      alert("Account could not be empty.");
+      return;
+    }
+    if (password.value == "") {
+      alert("Password could not be empty.");
+      return;
+    }
+
+    var loginRequest: LoginRequest = {
+      userName: account.value,
+      password: password.value,
+      clientType: 1,
+    };
+
+    var config: AxiosRequestConfig = {
+      baseURL: "http://sxz.api6.zykj.org/",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    var loginResponse = await axios.post(
+      "api/TokenAuth/Login",
+      JSON.stringify(loginRequest),
+      config
+    );
+    var loginData = loginResponse.data as CommonResponse;
+    if (!loginData.success) {
+      alert(loginData.error.details + "\n" + loginData.error.message);
+      return;
+    }
+    var loginResult = loginData.result as LoginResponse;
+    useUserInfoStore().token = loginResult.accessToken;
+
+    router.push({
+      path: "/",
+    });
+  } catch(e) {
+    alert(e);
   }
-  if (password.value == "") {
-    alert("Password could not be empty.");
-    return;
-  }
-
-  var loginRequest: LoginRequest = {
-    userName: account.value,
-    password: password.value,
-    clientType: 1,
-  };
-
-  var config: AxiosRequestConfig = {
-    baseURL: "http://sxz.api6.zykj.org/",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
-  var loginResponse = await axios.post(
-    "api/TokenAuth/Login",
-    JSON.stringify(loginRequest),
-    config
-  );
-  var loginData = loginResponse.data as CommonResponse;
-  if (!loginData.success) {
-    alert(loginData.error.details + "\n" + loginData.error.message);
-    return;
-  }
-  var loginResult = loginData.result as LoginResponse;
-  useUserInfoStore().token = loginResult.accessToken;
-
-  router.push({
-    path: "/",
-  });
 }
 </script>
 
@@ -82,7 +86,7 @@ async function login() {
       <a href="#" color-red no-underline m-t-2 @click="whyRef.show()">
         <div flex="~ items-center justify-center" text-sm>
           <span class="material-symbols-rounded"> info </span>
-          <span m-l-1 >Why HTTP?</span>
+          <span m-l-1>Why HTTP?</span>
         </div>
       </a>
     </div>
