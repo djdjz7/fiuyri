@@ -4,6 +4,7 @@ import axios from "axios";
 import type { NoteInfo } from "@/scripts/models";
 import OSS from "ali-oss";
 import { useUserInfoStore } from "@/stores/userInfo";
+import str2gbk from "str2gbk"
 
 const originalFileContent = ref("");
 var originalFileBuffer: ArrayBuffer;
@@ -35,7 +36,8 @@ async function beginUpload() {
     // 填写Bucket名称。
     bucket: "friday-note",
   });
-  await client.put(fileUrl.value, new Blob([newFileBuffer]));
+  
+  await client.put(fileUrl.value, new Blob([str2gbk(newFileContent.value)]));
   alert("Download now.");
   await client.put(fileUrl.value, new Blob([originalFileBuffer]));
   alert("Restored.");
