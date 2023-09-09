@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import {
   type LoginRequest,
   type CommonResponse,
@@ -14,10 +14,13 @@ const account = ref("");
 const password = ref("");
 
 const protocolRef = ref();
-if(document.location.protocol.toLowerCase() == "https:")
-{
-  protocolRef.value.show();
-}
+const whyRef = ref();
+
+onMounted(() => {
+  if (document.location.protocol.toLowerCase() == "https:") {
+    protocolRef.value.show();
+  }
+});
 
 async function login() {
   if (account.value == "") {
@@ -61,24 +64,45 @@ async function login() {
 }
 
 function goHttp() {
-  document.location.protocol = "http:"
+  document.location.protocol = "http:";
 }
 </script>
 
 <template>
-  <div absolute top-0 bottom-0 left-0 right-0 flex="~ justify-center items-center col">
+  <div
+    absolute
+    top-0
+    bottom-0
+    left-0
+    right-0
+    flex="~ justify-center items-center col"
+  >
     <span text-lg>FIUYRI.</span>
     <div flex="~ justify-center items-center col">
       <h1>Login</h1>
       <input v-model="account" m-t-2 placeholder="Account" />
       <input type="password" v-model="password" placeholder="Password" m-t-2 />
       <button m-t-4 @click="login">Login</button>
+      <a href="#" color-red no-underline m-t-2 @click="whyRef.show()">
+        <div flex="~ items-center justify-center" text-sm>
+          <span class="material-symbols-rounded"> info </span>
+          <span m-l-1 >Why HTTP?</span>
+        </div>
+      </a>
     </div>
   </div>
-  <Popup title="Protocol Error" ref="protocolRef">
-    <p>HTTPS is not currently supported by ZY's API, and mixed content is not allowed by modern browsers for security reasons.<br>
-    Please use HTTP instead.
+  <Popup title="Protocol Error" ref="protocolRef" :can-close="false">
+    <p>
+      HTTPS is not currently supported by ZY's API, and mixed content is not
+      allowed by modern browsers for security reasons.<br />
+      Please use HTTP instead.
     </p>
     <button m-t-2 @click="goHttp()">Go HTTP</button>
+  </Popup>
+  <Popup title="Why HTTP?" ref="whyRef">
+    <p>
+      HTTPS is not currently supported by ZY's API, and mixed content is not
+      allowed by modern browsers for security reasons.
+    </p>
   </Popup>
 </template>
