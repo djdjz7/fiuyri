@@ -62,10 +62,6 @@ async function login() {
     path: "/",
   });
 }
-
-function goHttp() {
-  document.location.protocol = "http:";
-}
 </script>
 
 <template>
@@ -97,7 +93,6 @@ function goHttp() {
       allowed by modern browsers for security reasons.<br />
       Please use HTTP instead.
     </p>
-    <button m-t-2 @click="goHttp()">Go HTTP</button>
   </Popup>
   <Popup title="Why HTTP?" ref="whyRef">
     <p>
