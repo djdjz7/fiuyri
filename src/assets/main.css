@@ -74,3 +74,42 @@ input[type="file"] {
 ::-webkit-scrollbar-track {
   background-color: transparent;
 }
+
+th,
+td {
+  --uno-gray: rgba(156, 163, 175, 1);
+  @apply border-b-1 border-b-solid border-b-gray/40
+  @apply p-2
+}
+
+table {
+  margin: 0 auto;
+  display: block;
+  overflow-x: auto;
+  border-spacing: 0;
+}
+
+tbody {
+  white-space: nowrap;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  vertical-align: bottom;
+}
+
+tr:last-child td {
+  border-bottom-width: 0;
+}
+
+tr {
+  @apply hover:bg-gray/10 hover:shadow-md
+  @apply transition-all duration-200
+  @apply cursor-pointer
+}
+
+th {
+  @apply text-sm text-gray text-left
+}

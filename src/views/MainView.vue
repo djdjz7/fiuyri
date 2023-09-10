@@ -8,10 +8,10 @@ import type {
   GetAllNotesResponse,
   NoteCommonResponse,
   NoteInfo,
-StorageCredential,
+  StorageCredential,
 } from "@/scripts/models";
 import ReplaceDialog from "@/components/ReplaceDialog.vue";
-import router from "@/router"
+import router from "@/router";
 import Loading from "@/components/Loading.vue";
 
 const isLoading = ref(true);
@@ -19,10 +19,10 @@ const isLoading = ref(true);
 const dialogRef = ref();
 var noteList = new Array<NoteInfo>();
 const userToken = useUserInfoStore().token;
-if(userToken.trim() == '')
-router.push({
-  path: '/login',
-});
+if (userToken.trim() == "")
+  router.push({
+    path: "/login",
+  });
 
 var config: AxiosRequestConfig = {
   headers: {
@@ -45,8 +45,8 @@ if (!getOssCredentialResponseData.success) {
       getOssCredentialResponseData.error.message
   );
 } else {
-
-  const ossCredential = getOssCredentialResponseData.result as StorageCredential;
+  const ossCredential =
+    getOssCredentialResponseData.result as StorageCredential;
   const userInfo = useUserInfoStore();
   userInfo.accessKeyId = ossCredential.accessKeyId;
   userInfo.accessKeySecret = ossCredential.accessKeySecret;
@@ -79,25 +79,33 @@ async function openDialog(note: NoteInfo) {
 <template>
   <div m-6 md:m-12 h-full flex="~ col items-center">
     <table>
-      <tr v-for="note in noteList">
-        <td text-lg>{{ note.fileName }}</td>
-        <td text-sm text-gray>{{ note.updateTime }}</td>
-        <td>
-          <button
-            flex="~ items-center justify-center"
-            p-1
-            rounded-full
-            h-8
-            w-8
-            border-none
-            @click="openDialog(note)"
-          >
-            <span class="material-symbols-rounded"> chevron_right </span>
-          </button>
-        </td>
-      </tr>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Last Update</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="note in noteList" @click="openDialog(note)">
+          <td text-lg>{{ note.fileName }}</td>
+          <td text-sm text-gray>{{ note.updateTime }}</td>
+          <td>
+            <button
+              flex="~ items-center justify-center"
+              p-1
+              rounded-full
+              h-8
+              w-8
+              border-none
+            >
+              <span class="material-symbols-rounded"> chevron_right </span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
   <ReplaceDialog ref="dialogRef" />
-  <Loading v-if="isLoading"/>
+  <Loading v-if="isLoading" />
 </template>
