@@ -8,7 +8,7 @@
 
 button {
   font-family: Inter;
-  @apply p-y-1 p-x-4 border-1 border-solid border-gray rounded-2 text-sm
+  @apply p-y-1 p-x-4 border-1 border-solid border-gray/40 rounded-2 text-sm
   @apply transition-all duration-200
   @apply focus:ring-2 ring-offset-1 ring-gray/50  
   @apply text-black
@@ -21,7 +21,7 @@ button {
 
 input {
   font-family: Inter;
-  @apply p-y-2 p-x-3 border-1 border-solid border-gray rounded-2
+  @apply p-y-2 p-x-3 border-1 border-solid border-gray/40 rounded-2
   @apply transition-all duration-200
   @apply focus:ring-2 ring-offset-1 ring-gray/50
   @apply text-black
@@ -35,7 +35,7 @@ input[type="file"]:focus {
 
 input::-webkit-file-upload-button {
   font-family: Inter;
-  @apply p-y-1 p-x-4 m-r-2 border-1 border-solid border-gray rounded-1 text-sm
+  @apply p-y-1 p-x-4 m-r-2 border-1 border-solid border-gray/40 rounded-1 text-sm
   @apply transition-all duration-200
   @apply focus:ring-2 ring-offset-1 ring-gray/50  
   @apply text-black
@@ -45,7 +45,7 @@ input::-webkit-file-upload-button {
 
 input::file-selector-button {
   font-family: Inter;
-  @apply p-y-1 p-x-4 m-r-2 border-1 border-solid border-gray rounded-1 text-sm
+  @apply p-y-1 p-x-4 m-r-2 border-1 border-solid border-gray/40 rounded-1 text-sm
   @apply transition-all duration-200
   @apply focus:ring-2 ring-offset-1 ring-gray/50  
   @apply text-black
@@ -112,4 +112,14 @@ tr {
 
 th {
   @apply text-sm text-gray text-left
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 100ms ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }

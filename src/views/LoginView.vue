@@ -87,8 +87,8 @@ async function login() {
     <span text-lg>FIUYRI.</span>
     <div flex="~ justify-center items-center col">
       <h1>Login</h1>
-      <input v-model="account" m-t-2 placeholder="Account" />
-      <input type="password" v-model="password" placeholder="Password" m-t-2 />
+      <input v-model="account" m-t-2 placeholder="Account" v-on:keyup.enter="login"/>
+      <input type="password" v-model="password" placeholder="Password" m-t-2 v-on:keyup.enter="login" />
       <button type="button" m-t-4 @click="login">Login</button>
       <a href="#" color-red no-underline m-t-2 @click="whyRef.show()">
         <div flex="~ items-center justify-center" text-sm>

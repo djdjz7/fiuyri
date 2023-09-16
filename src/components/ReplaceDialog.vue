@@ -4,7 +4,8 @@ import axios from "axios";
 import type { NoteInfo } from "@/scripts/models";
 import OSS from "ali-oss";
 import { useUserInfoStore } from "@/stores/userInfo";
-import str2gbk from "str2gbk"
+import str2gbk from "str2gbk";
+import Loading from "./Loading.vue";
 
 const originalFileContent = ref("");
 var originalFileBuffer: ArrayBuffer;
@@ -14,6 +15,7 @@ const decoder = new TextDecoder("gbk");
 const isShowing = ref(false);
 const fileName = ref("");
 const fileUrl = ref("");
+const isLoading = ref(false);
 
 async function readFile(event: Event) {
   const target = event.target as HTMLInputElement;
@@ -24,6 +26,7 @@ async function readFile(event: Event) {
 }
 
 async function beginUpload() {
+  isLoading.value = true;
   const userInfo = useUserInfoStore();
   const client = new OSS({
     // yourRegion填写Bucket所在地域。以华东1（杭州）为例，yourRegion填写为oss-cn-hangzhou。
@@ -36,15 +39,17 @@ async function beginUpload() {
     // 填写Bucket名称。
     bucket: "friday-note",
   });
-  
+
   await client.put(fileUrl.value, new Blob([str2gbk(newFileContent.value)]));
   alert("Download now.");
   await client.put(fileUrl.value, new Blob([originalFileBuffer]));
   alert("Restored.");
+  isLoading.value = false;
   isShowing.value = false;
 }
 
 const openDialog = async (note: NoteInfo) => {
+  isLoading.value = true;
   const downloadedContent = await axios.get(note.fileUrl as string, {
     baseURL: "https://friday-note.oss-cn-hangzhou.aliyuncs.com/",
     responseType: "arraybuffer",
@@ -55,6 +60,7 @@ const openDialog = async (note: NoteInfo) => {
   originalFileBuffer = downloadedContent.data;
   originalFileContent.value = decoder.decode(originalFileBuffer);
   newFileContent.value = "";
+  isLoading.value = false;
 };
 
 defineExpose({ openDialog });
@@ -108,8 +114,18 @@ defineExpose({ openDialog });
         <span block text-gray truncate>{{ fileUrl }}</span>
 
         <h3 m-t-2>Original file content</h3>
-        <div v-if="originalFileContent.trim() != ''" h-40 overflow-y-scroll m-t-1 shadow-md rounded-1>
-          <span block m-2 break-words whitespace-pre-wrap>{{ originalFileContent }}</span>
+        <div
+          v-if="originalFileContent.trim() != ''"
+          h-40
+          overflow-y-scroll
+          m-t-1
+          shadow-md
+          rounded-1
+          border="gray/40 1 solid"
+        >
+          <span block m-2 break-words whitespace-pre-wrap>{{
+            originalFileContent
+          }}</span>
         </div>
         <div v-else m-t-1>
           <span>Empty</span>
@@ -124,8 +140,19 @@ defineExpose({ openDialog });
         />
 
         <h3 m-t-1>New file content</h3>
-        <div v-if="newFileContent.trim() != ''" h-40 overflow-y-scroll m-t-1 shadow-md rounded-1>
-          <span block m-2 break-words whitespace-pre-wrap>{{ newFileContent }}</span>>
+        <div
+          v-if="newFileContent.trim() != ''"
+          h-40
+          overflow-y-scroll
+          m-t-1
+          shadow-md
+          rounded-1
+          border="gray/40 1 solid"
+        >
+          <span block m-2 break-words whitespace-pre-wrap>{{
+            newFileContent
+          }}</span
+          >>
         </div>
         <div v-else m-t-1>
           <span>Empty</span>
@@ -136,16 +163,7 @@ defineExpose({ openDialog });
       </div>
     </div>
   </Transition>
+  <Transition>
+    <Loading v-if="isLoading" />
+  </Transition>
 </template>
-
-<style scoped>
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 100ms ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
-</style>

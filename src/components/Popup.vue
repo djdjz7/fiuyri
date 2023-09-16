@@ -68,15 +68,3 @@ defineExpose({ show });
     </div>
   </Transition>
 </template>
-
-<style scoped>
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 100ms ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
-</style>
