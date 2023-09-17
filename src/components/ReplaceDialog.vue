@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, type HtmlHTMLAttributes } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 import type { NoteInfo } from "@/scripts/models";
 import OSS from "ali-oss";
@@ -48,11 +48,35 @@ async function beginUpload() {
   isShowing.value = false;
 }
 
+async function eraseAllContent() {
+  isLoading.value = true;
+  const userInfo = useUserInfoStore();
+  const client = new OSS({
+    // yourRegion填写Bucket所在地域。以华东1（杭州）为例，yourRegion填写为oss-cn-hangzhou。
+    region: "oss-cn-hangzhou",
+    // 从STS服务获取的临时访问密钥（AccessKey ID和AccessKey Secret）。
+    accessKeyId: userInfo.accessKeyId,
+    accessKeySecret: userInfo.accessKeySecret,
+    // 从STS服务获取的安全令牌（SecurityToken）。
+    stsToken: userInfo.securityToken,
+    // 填写Bucket名称。
+    bucket: "friday-note",
+  });
+
+  await client.put(fileUrl.value, new Blob());
+  alert("Erased.");
+  isLoading.value = false;
+  isShowing.value = false;
+}
+
 const openDialog = async (note: NoteInfo) => {
   isLoading.value = true;
   const downloadedContent = await axios.get(note.fileUrl as string, {
     baseURL: "https://friday-note.oss-cn-hangzhou.aliyuncs.com/",
     responseType: "arraybuffer",
+    headers: {
+      "Cache-Control": "no-cache",
+    },
   });
   fileName.value = note.fileName;
   fileUrl.value = note.fileUrl;
@@ -61,9 +85,20 @@ const openDialog = async (note: NoteInfo) => {
   originalFileContent.value = decoder.decode(originalFileBuffer);
   newFileContent.value = "";
   isLoading.value = false;
+  document.onkeydown = (e) => {
+    if(e.key == "Escape") {
+      close();
+    }
+  };
 };
 
 defineExpose({ openDialog });
+
+function close() {
+  isShowing.value = false;
+  document.onkeydown = null;
+}
+
 </script>
 
 <template>
@@ -106,14 +141,23 @@ defineExpose({ openDialog });
           right-6
           md:top-12
           md:right-12
-          @click="isShowing = false"
+          @click="close()"
         >
           <span class="material-symbols-rounded"> close </span>
         </button>
         <h2 block truncate>{{ fileName }}</h2>
         <span block text-gray truncate>{{ fileUrl }}</span>
 
-        <h3 m-t-2>Original file content</h3>
+        <div flex m-t-2>
+          <h3>Original file content</h3>
+          <button
+            m-l-2
+            v-if="originalFileContent.trim() != ''"
+            @click="eraseAllContent()"
+          >
+            Erase
+          </button>
+        </div>
         <div
           v-if="originalFileContent.trim() != ''"
           h-40
