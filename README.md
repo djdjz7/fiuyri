@@ -1,4 +1,4 @@
 # FIUYRI.
 
-/fɪʊri:/  
+/fɪwɪri:/  
 Whatever.
