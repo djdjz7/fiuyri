@@ -117,6 +117,7 @@ function close() {
     >
       <div
         bg-light
+        dark:bg-dark
         md:rounded-4
         absolute
         top-0

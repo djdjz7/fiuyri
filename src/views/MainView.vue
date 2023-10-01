@@ -13,6 +13,7 @@ import type {
 import ReplaceDialog from "@/components/ReplaceDialog.vue";
 import router from "@/router";
 import Loading from "@/components/Loading.vue";
+import FolderToggleButton from "@/components/FolderToggleButton.vue";
 
 const isLoading = ref(true);
 
@@ -82,7 +83,20 @@ async function openDialog(note: NoteInfo) {
 </script>
 
 <template>
-  <div m-6 md:m-12 h-full flex="~ col items-center">
+  <div
+    fixed
+    md:top-0
+    md:left-0
+    md:w-full
+    z-1
+    p-2
+    shadow-lg
+    backdrop-blur-lg
+    flex="~ items-center justify-center"
+  >
+    <FolderToggleButton />
+  </div>
+  <div m-6 md:m-12 md:m-t-20 h-full flex="~ col items-center">
     <table>
       <thead>
         <tr shadow-md>

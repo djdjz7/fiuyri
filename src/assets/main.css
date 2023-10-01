@@ -19,7 +19,9 @@ button {
   outline: none;
 }
 
-input {
+input[type="text"],
+input[type="password"],
+input[type="file"] {
   font-family: Inter;
   @apply p-y-2 p-x-3 border-1 border-solid border-gray/40 rounded-2
   @apply transition-all duration-200
@@ -79,7 +81,7 @@ th,
 td {
   --uno-gray: rgba(156, 163, 175, 1);
   @apply border-b-1 border-b-solid border-b-gray/40
-  @apply p-2
+  @apply p-2;
 }
 
 table {
@@ -107,11 +109,11 @@ tr:last-child td {
 tr {
   @apply hover:bg-gray/10 hover:shadow-md
   @apply transition-all duration-200
-  @apply cursor-pointer
+  @apply cursor-pointer;
 }
 
 th {
-  @apply text-sm text-gray text-left
+  @apply text-sm text-gray text-left;
 }
 
 .v-enter-active,
@@ -122,4 +124,33 @@ th {
 .v-enter-from,
 .v-leave-to {
   opacity: 0;
+}
+
+input[type="checkbox"] {
+  border-color: red;
+}
+input[type="checkbox"]:checked {
+  border-color: green;
+}
+input[type="checkbox"]:not(:checked) {
+  border-color: blue;
+}
+
+.toggleButton {
+  @apply focus:ring-none border-none;
+  box-shadow: 2px 2px 6px -1px rgba(0, 0, 0, 0.2),
+    -2px -2px 6px -1px rgba(255, 255, 255, 0.7) !important;
+}
+.toggleButton:hover {
+  box-shadow: 2px 2px 6px -1px rgba(0, 0, 0, 0.2),
+    -2px -2px 6px -1px rgba(255, 255, 255, 0.7) !important;
+}
+.toggleButtonToggled {
+  @apply focus:ring-none border-none;
+  box-shadow: inset 2px 2px 6px 0px rgba(0, 0, 0, 0.2),
+    inset -2px -2px 6px 0px rgba(255, 255, 255, 0.7) !important;
+}
+.toggleButtonToggled:hover {
+  box-shadow: inset 2px 2px 6px 0px rgba(0, 0, 0, 0.2),
+    inset -2px -2px 6px 0px rgba(255, 255, 255, 0.7) !important;
 }
