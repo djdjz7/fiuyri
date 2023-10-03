@@ -8,13 +8,14 @@
     left-0
     right-0
     bottom-0
+    z-999
     flex="~ items-center justify-center"
     overflow-y-scroll
     overflow-x-clip
   >
-    <div bg-light rounded-4 p-6 shadow-lg>
+    <div bg-light dark:bg-dark rounded-4 p-6 shadow-lg>
       <div w-8 h-8 rounded-full p-1 class="circle">
-        <div w-full h-full rounded-full bg-light></div>
+        <div w-full h-full rounded-full bg-light dark:bg-dark></div>
       </div>
     </div>
   </div>

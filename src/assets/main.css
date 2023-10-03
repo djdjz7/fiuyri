@@ -14,6 +14,7 @@ button {
   @apply text-black
   @apply hover:filter-brightness-95 focus:filter-brightness-95
   @apply hover:shadow-md;
+  @apply dark:bg-dark dark:text-light;
 }
 :focus {
   outline: none;
@@ -23,10 +24,10 @@ input[type="text"],
 input[type="password"],
 input[type="file"] {
   font-family: Inter;
-  @apply p-y-2 p-x-3 border-1 border-solid border-gray/40 rounded-2
+  @apply p-y-2 p-x-3 border-1 border-solid border-gray/40 rounded-2 dark:bg-dark
   @apply transition-all duration-200
   @apply focus:ring-2 ring-offset-1 ring-gray/50
-  @apply text-black
+  @apply text-dark dark:text-light;
   @apply hover:shadow-md;
 }
 input[type="text"]:focus,
@@ -53,10 +54,11 @@ input::file-selector-button {
   @apply text-black
   @apply hover:filter-brightness-95 focus:filter-brightness-95
   @apply hover:shadow-md;
+  @apply dark:bg-dark dark:text-light;
 }
 
 input[type="file"] {
-  @apply p-1;
+  @apply p-1 dark:text-light;
 }
 
 ::-webkit-scrollbar {
@@ -86,7 +88,6 @@ td {
 
 table {
   margin: 0 auto;
-  display: block;
   overflow-x: auto;
   border-spacing: 0;
 }
@@ -153,4 +154,26 @@ input[type="checkbox"]:not(:checked) {
 .toggleButtonToggled:hover {
   box-shadow: inset 2px 2px 6px 0px rgba(0, 0, 0, 0.2),
     inset -2px -2px 6px 0px rgba(255, 255, 255, 0.7) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+
+  .toggleButton {
+    @apply focus:ring-none border-none;
+    box-shadow: 2px 2px 6px -1px rgba(0, 0, 0, 0.2),
+      -2px -2px 6px -1px rgba(255, 255, 255, 0.7) !important;
+  }
+  .toggleButton:hover {
+    box-shadow: 2px 2px 6px -1px rgba(0, 0, 0, 0.2),
+      -2px -2px 6px -1px rgba(255, 255, 255, 0.7) !important;
+  }
+  .toggleButtonToggled {
+    @apply focus:ring-none border-none;
+    box-shadow: inset 2px 2px 6px 0px rgba(0, 0, 0, 0.2),
+      inset -2px -2px 6px 0px rgba(150, 150, 150, 0.614) !important;
+  }
+  .toggleButtonToggled:hover {
+    box-shadow: inset 2px 2px 6px 0px rgba(0, 0, 0, 0.2),
+      inset -2px -2px 6px 0px rgba(150, 150, 150, 0.614) !important;
+  }
 }

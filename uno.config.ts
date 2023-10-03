@@ -5,7 +5,7 @@ import { presetAttributify, presetUno } from "unocss";
 export default defineConfig({
     presets: [
         presetUno({
-            dark: 'media'
+            dark: 'media',
         }),
         presetAttributify(),
     ],

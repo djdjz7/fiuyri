@@ -86,7 +86,7 @@ const openDialog = async (note: NoteInfo) => {
   newFileContent.value = "";
   isLoading.value = false;
   document.onkeydown = (e) => {
-    if(e.key == "Escape") {
+    if (e.key == "Escape") {
       close();
     }
   };
@@ -98,12 +98,12 @@ function close() {
   isShowing.value = false;
   document.onkeydown = null;
 }
-
 </script>
 
 <template>
   <Transition>
     <div
+      z-999
       v-if="isShowing"
       md:backdrop-blur-lg
       fixed
@@ -142,9 +142,10 @@ function close() {
           right-6
           md:top-12
           md:right-12
+          dark-bg-dark
           @click="close()"
         >
-          <span class="material-symbols-rounded"> close </span>
+          <span class="material-symbols-rounded" dark:text-light> close </span>
         </button>
         <h2 block truncate>{{ fileName }}</h2>
         <span block text-gray truncate>{{ fileUrl }}</span>

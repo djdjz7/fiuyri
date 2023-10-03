@@ -34,6 +34,7 @@ defineExpose({ show });
     >
       <div
         bg-light
+        dark:bg-dark
         md:rounded-4
         absolute
         top-0
@@ -59,9 +60,10 @@ defineExpose({ show });
           right-6
           md:top-12
           md:right-12
+          dark-bg-dark
           @click="isShowing = false"
         >
-          <span class="material-symbols-rounded"> close </span>
+          <span class="material-symbols-rounded" dark:text-light> close </span>
         </button>
         <slot></slot>
       </div>
