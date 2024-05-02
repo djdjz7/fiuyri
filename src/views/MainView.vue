@@ -34,7 +34,7 @@ onMounted(async () => {
       "Content-Type": "application/json",
       Authorization: "Bearer ".concat(userToken),
     },
-    baseURL: "http://sxz.api6.zykj.org/",
+    baseURL: "http://sxz.api.zykj.org/",
   };
 
   const getOssCredentialResponse = await axios.get(

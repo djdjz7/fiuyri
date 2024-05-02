@@ -44,7 +44,7 @@ async function login() {
     };
 
     var config: AxiosRequestConfig = {
-      baseURL: "http://sxz.api6.zykj.org/",
+      baseURL: "http://sxz.api.zykj.org/",
       headers: {
         "Content-Type": "application/json",
       },
